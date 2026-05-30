@@ -1,7 +1,7 @@
 import { api } from './api.js';
 import { isLoggedIn, getUsername, logout } from './auth.js';
 
-if (!isLoggedIn()) window.location.href = '/login.html';
+if (!isLoggedIn()) window.location.href = 'login.html';
 
 const COIN_LABELS = { bitcoin: 'Bitcoin', ethereum: 'Ethereum', solana: 'Solana' };
 
@@ -39,7 +39,7 @@ async function loadPortfolio() {
 
     const container = document.getElementById('holdings-table');
     if (!data.holdings || data.holdings.length === 0) {
-      container.innerHTML = `<p class="text-gray-400 p-6 text-center">No holdings yet. <a href="/trade.html" class="text-blue-400">Make your first trade</a></p>`;
+      container.innerHTML = `<p class="text-gray-400 p-6 text-center">No holdings yet. <a href="trade.html" class="text-blue-400">Make your first trade</a></p>`;
       return;
     }
 

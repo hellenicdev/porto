@@ -1,4 +1,4 @@
-const API_BASE = localStorage.getItem('API_BASE') || 'http://localhost:3000/api';
+const API_BASE = localStorage.getItem('API_BASE') || 'https://porto-8upa.onrender.com/api';
 
 export async function api(path, options = {}) {
   const token = localStorage.getItem('token');

@@ -11,7 +11,7 @@ export function getUsername() {
 export function logout() {
   localStorage.removeItem('token');
   localStorage.removeItem('username');
-  window.location.href = '/login.html';
+  window.location.href = 'login.html';
 }
 
 export async function register(username, password, turnstileToken) {

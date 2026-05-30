@@ -86,7 +86,7 @@
         } else {
           await register(usernameInput.value, passwordInput.value, turnstileToken);
         }
-        window.location.href = '/';
+        window.location.href = 'index.html';
       } catch (err) {
         errorMsg.textContent = err.message;
         errorMsg.classList.remove('hidden');

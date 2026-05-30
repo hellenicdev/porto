@@ -1,7 +1,7 @@
 import { api } from './api.js';
 import { isLoggedIn, getUsername, logout } from './auth.js';
 
-if (!isLoggedIn()) window.location.href = '/login.html';
+if (!isLoggedIn()) window.location.href = 'login.html';
 
 const COIN_LABELS = { bitcoin: 'Bitcoin', ethereum: 'Ethereum', solana: 'Solana' };
 

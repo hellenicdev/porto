@@ -1,7 +1,7 @@
 import { api } from './api.js';
 import { isLoggedIn, getUsername, logout } from './auth.js';
 
-if (!isLoggedIn()) window.location.href = '/login.html';
+if (!isLoggedIn()) window.location.href = 'login.html';
 
 document.getElementById('nav-username').textContent = getUsername();
 document.getElementById('logout-btn').addEventListener('click', logout);
