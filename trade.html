@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crypto Portfolio — Trade</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-white min-h-screen">
+  <nav class="border-b border-gray-800 px-6 py-4 flex items-center justify-between">
+    <h1 class="text-xl font-bold">Crypto Portfolio</h1>
+    <div class="flex items-center gap-4">
+      <span id="nav-username" class="text-gray-400 text-sm"></span>
+      <a href="/" class="text-blue-400 hover:text-blue-300 text-sm">Dashboard</a>
+      <a href="/portfolio.html" class="text-blue-400 hover:text-blue-300 text-sm">Portfolio</a>
+      <a href="/leaderboard.html" class="text-blue-400 hover:text-blue-300 text-sm">Leaderboard</a>
+      <button id="logout-btn" class="text-red-400 hover:text-red-300 text-sm">Logout</button>
+    </div>
+  </nav>
+
+  <main class="max-w-2xl mx-auto px-4 py-8">
+    <div class="bg-gray-900 rounded-xl p-6 mb-8">
+      <h2 class="text-lg font-semibold mb-6">Trade</h2>
+
+      <div id="error-msg" class="hidden mb-4 bg-red-900/50 border border-red-700 rounded p-3 text-sm text-red-300"></div>
+
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <div>
+          <label class="block text-sm text-gray-400 mb-1">Coin</label>
+          <select id="coin" class="w-full px-4 py-2 rounded bg-gray-800 border border-gray-700 outline-none">
+            <option value="bitcoin">Bitcoin</option>
+            <option value="ethereum">Ethereum</option>
+            <option value="solana">Solana</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm text-gray-400 mb-1">Current Price</label>
+          <p id="live-price" class="text-xl font-bold">$—</p>
+        </div>
+      </div>
+
+      <div class="flex mb-4 bg-gray-800 rounded-lg overflow-hidden">
+        <button id="btn-buy" class="flex-1 py-2 font-semibold bg-green-600">BUY</button>
+        <button id="btn-sell" class="flex-1 py-2 font-semibold text-gray-400">SELL</button>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm text-gray-400 mb-1">Quantity</label>
+        <input id="quantity" type="number" step="0.00000001" min="0.00000001" required
+          class="w-full px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:border-blue-500 outline-none" />
+      </div>
+
+      <p id="cost-display" class="text-sm text-gray-400 mb-4">Total: $0.00</p>
+
+      <button id="trade-btn"
+        class="w-full py-2 rounded font-semibold bg-blue-600 hover:bg-blue-700 transition">
+        Execute Trade
+      </button>
+    </div>
+
+    <h2 class="text-lg font-semibold mb-4">Trade History</h2>
+    <div id="trade-history" class="bg-gray-900 rounded-xl overflow-hidden">
+      <p class="text-gray-400 p-6 text-center">No trades yet.</p>
+    </div>
+  </main>
+
+  <script type="module" src="/js/trade.js"></script>
+</body>
+</html>

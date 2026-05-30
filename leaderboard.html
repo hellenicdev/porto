@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crypto Portfolio — Leaderboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-white min-h-screen">
+  <nav class="border-b border-gray-800 px-6 py-4 flex items-center justify-between">
+    <h1 class="text-xl font-bold">Crypto Portfolio</h1>
+    <div class="flex items-center gap-4">
+      <span id="nav-username" class="text-gray-400 text-sm"></span>
+      <a href="/" class="text-blue-400 hover:text-blue-300 text-sm">Dashboard</a>
+      <a href="/trade.html" class="text-blue-400 hover:text-blue-300 text-sm">Trade</a>
+      <a href="/portfolio.html" class="text-blue-400 hover:text-blue-300 text-sm">Portfolio</a>
+      <button id="logout-btn" class="text-red-400 hover:text-red-300 text-sm">Logout</button>
+    </div>
+  </nav>
+
+  <main class="max-w-3xl mx-auto px-4 py-8">
+    <h2 class="text-2xl font-bold mb-6">Leaderboard</h2>
+
+    <div id="leaderboard-table" class="bg-gray-900 rounded-xl overflow-hidden">
+      <p class="text-gray-400 p-6 text-center">Loading...</p>
+    </div>
+  </main>
+
+  <script type="module" src="/js/leaderboard.js"></script>
+</body>
+</html>

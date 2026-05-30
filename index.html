@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crypto Portfolio — Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-white min-h-screen">
+  <nav class="border-b border-gray-800 px-6 py-4 flex items-center justify-between">
+    <h1 class="text-xl font-bold">Crypto Portfolio</h1>
+    <div class="flex items-center gap-4">
+      <span id="nav-username" class="text-gray-400 text-sm"></span>
+      <a href="/trade.html" class="text-blue-400 hover:text-blue-300 text-sm">Trade</a>
+      <a href="/portfolio.html" class="text-blue-400 hover:text-blue-300 text-sm">Portfolio</a>
+      <a href="/leaderboard.html" class="text-blue-400 hover:text-blue-300 text-sm">Leaderboard</a>
+      <button id="logout-btn" class="text-red-400 hover:text-red-300 text-sm">Logout</button>
+    </div>
+  </nav>
+
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+      <div class="bg-gray-900 rounded-xl p-6">
+        <p class="text-gray-400 text-sm mb-1">Cash Balance</p>
+        <p id="cash-balance" class="text-2xl font-bold">$0.00</p>
+      </div>
+      <div class="bg-gray-900 rounded-xl p-6">
+        <p class="text-gray-400 text-sm mb-1">Portfolio Value</p>
+        <p id="portfolio-value" class="text-2xl font-bold">$0.00</p>
+      </div>
+      <div class="bg-gray-900 rounded-xl p-6">
+        <p class="text-gray-400 text-sm mb-1">Total Value</p>
+        <p id="total-value" class="text-2xl font-bold text-green-400">$0.00</p>
+      </div>
+    </div>
+
+    <h2 class="text-lg font-semibold mb-4">Live Prices</h2>
+    <div id="price-cards" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+      <div class="bg-gray-900 rounded-xl p-6 text-center animate-pulse">
+        <p class="text-gray-400">Loading prices...</p>
+      </div>
+    </div>
+
+    <h2 class="text-lg font-semibold mb-4">Your Holdings</h2>
+    <div id="holdings-table" class="bg-gray-900 rounded-xl overflow-hidden">
+      <p class="text-gray-400 p-6 text-center">No holdings yet. <a href="/trade.html" class="text-blue-400">Make your first trade</a></p>
+    </div>
+  </main>
+
+  <script type="module" src="/js/dashboard.js"></script>
+</body>
+</html>

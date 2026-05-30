@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crypto Portfolio — Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+<body class="bg-gray-950 text-white min-h-screen flex items-center justify-center">
+  <div class="w-full max-w-sm mx-4">
+    <h1 class="text-3xl font-bold text-center mb-2">Crypto Portfolio</h1>
+    <p class="text-gray-400 text-center mb-8">Virtual trading simulator</p>
+
+    <div id="form-container" class="bg-gray-900 rounded-xl p-6 shadow-lg">
+      <div class="flex mb-6">
+        <button id="tab-login" class="flex-1 pb-2 border-b-2 border-blue-500 font-semibold">Login</button>
+        <button id="tab-register" class="flex-1 pb-2 border-b-2 border-transparent text-gray-400">Register</button>
+      </div>
+
+      <form id="auth-form">
+        <div id="error-msg" class="hidden mb-4 bg-red-900/50 border border-red-700 rounded p-3 text-sm text-red-300"></div>
+
+        <label class="block text-sm text-gray-400 mb-1">Username</label>
+        <input id="username" type="text" required minlength="3" maxlength="30"
+          class="w-full mb-4 px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:border-blue-500 outline-none" />
+
+        <label class="block text-sm text-gray-400 mb-1">Password</label>
+        <input id="password" type="password" required minlength="6"
+          class="w-full mb-4 px-4 py-2 rounded bg-gray-800 border border-gray-700 focus:border-blue-500 outline-none" />
+
+        <div class="cf-turnstile mb-4 flex justify-center" data-sitekey="0x4AAAAAADZX5BcwjLABeTyy"></div>
+
+        <button type="submit" id="submit-btn"
+          class="w-full py-2 rounded font-semibold bg-blue-600 hover:bg-blue-700 transition">
+          Login
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script type="module">
+    import { login, register } from './js/auth.js';
+
+    const tabLogin = document.getElementById('tab-login');
+    const tabRegister = document.getElementById('tab-register');
+    const submitBtn = document.getElementById('submit-btn');
+    const errorMsg = document.getElementById('error-msg');
+    const form = document.getElementById('auth-form');
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+
+    let mode = 'login';
+
+    tabLogin.addEventListener('click', () => {
+      mode = 'login';
+      tabLogin.className = 'flex-1 pb-2 border-b-2 border-blue-500 font-semibold';
+      tabRegister.className = 'flex-1 pb-2 border-b-2 border-transparent text-gray-400';
+      submitBtn.textContent = 'Login';
+    });
+
+    tabRegister.addEventListener('click', () => {
+      mode = 'register';
+      tabRegister.className = 'flex-1 pb-2 border-b-2 border-blue-500 font-semibold';
+      tabLogin.className = 'flex-1 pb-2 border-b-2 border-transparent text-gray-400';
+      submitBtn.textContent = 'Register';
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorMsg.classList.add('hidden');
+
+      const turnstileToken = turnstile.getResponse();
+      if (!turnstileToken) {
+        errorMsg.textContent = 'Please complete the security check';
+        errorMsg.classList.remove('hidden');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Please wait...';
+
+      try {
+        if (mode === 'login') {
+          await login(usernameInput.value, passwordInput.value, turnstileToken);
+        } else {
+          await register(usernameInput.value, passwordInput.value, turnstileToken);
+        }
+        window.location.href = '/';
+      } catch (err) {
+        errorMsg.textContent = err.message;
+        errorMsg.classList.remove('hidden');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = mode === 'login' ? 'Login' : 'Register';
+      }
+    });
+  </script>
+</body>
+</html>
