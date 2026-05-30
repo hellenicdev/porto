@@ -38,7 +38,8 @@ router.get('/', async (_req, res) => {
 
     res.json(entries.slice(0, 50));
   } catch (err) {
-    res.status(500).json({ error: 'Server error' });
+    console.error('GET /api/leaderboard error:', err.message);
+    res.status(500).json({ error: 'Server error', detail: err.message });
   }
 });
 

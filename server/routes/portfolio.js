@@ -18,7 +18,8 @@ router.get('/', auth, async (req, res) => {
       holdings: portfolio.coinEntries,
     });
   } catch (err) {
-    res.status(500).json({ error: 'Server error' });
+    console.error('GET /api/portfolio error:', err.message);
+    res.status(500).json({ error: 'Server error', detail: err.message });
   }
 });
 

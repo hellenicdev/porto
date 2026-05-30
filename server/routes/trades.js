@@ -62,7 +62,8 @@ router.post('/', auth, async (req, res) => {
       holdings: portfolio.coinEntries,
     });
   } catch (err) {
-    res.status(500).json({ error: 'Server error' });
+    console.error('POST /api/trades error:', err.message);
+    res.status(500).json({ error: 'Server error', detail: err.message });
   }
 });
 
@@ -71,7 +72,8 @@ router.get('/', auth, async (req, res) => {
     const trades = await Trade.find({ userId: req.userId }).sort({ createdAt: -1 });
     res.json(trades);
   } catch (err) {
-    res.status(500).json({ error: 'Server error' });
+    console.error('GET /api/trades error:', err.message);
+    res.status(500).json({ error: 'Server error', detail: err.message });
   }
 });
 

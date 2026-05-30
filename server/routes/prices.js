@@ -8,7 +8,8 @@ router.get('/', async (_req, res) => {
     const prices = await getPrices();
     res.json(prices);
   } catch (err) {
-    res.status(502).json({ error: 'Failed to fetch prices' });
+    console.error('GET /api/prices error:', err.message);
+    res.status(502).json({ error: 'Failed to fetch prices', detail: err.message });
   }
 });
 

@@ -82,7 +82,8 @@ router.post('/login', async (req, res) => {
 
     res.json({ token, user: user.toJSON() });
   } catch (err) {
-    res.status(500).json({ error: 'Server error' });
+    console.error('POST /api/auth error:', err.message);
+    res.status(500).json({ error: 'Server error', detail: err.message });
   }
 });
 
