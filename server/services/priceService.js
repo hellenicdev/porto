@@ -1,9 +1,11 @@
 import axios from 'axios';
 
 const SUPPORTED_COINS = ['bitcoin', 'ethereum', 'solana'];
-let cache = { prices: null, timestamp: 0 };
+
+const FALLBACK_PRICES = { bitcoin: 70000, ethereum: 3500, solana: 150 };
+let cache = { prices: FALLBACK_PRICES, timestamp: 0 };
 let pendingPromise = null;
-const CACHE_TTL = 60_000;
+const CACHE_TTL = 120_000;
 
 const client = axios.create({
   timeout: 10000,
