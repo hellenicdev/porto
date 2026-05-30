@@ -2,7 +2,8 @@ import axios from 'axios';
 
 const SUPPORTED_COINS = ['bitcoin', 'ethereum', 'solana'];
 let cache = { prices: null, timestamp: 0 };
-const CACHE_TTL = 30_000;
+let pendingPromise = null;
+const CACHE_TTL = 60_000;
 
 const client = axios.create({
   timeout: 10000,
@@ -18,6 +19,21 @@ export async function getPrices() {
     return cache.prices;
   }
 
+  if (pendingPromise) {
+    return pendingPromise;
+  }
+
+  pendingPromise = fetchPrices();
+
+  try {
+    const prices = await pendingPromise;
+    return prices;
+  } finally {
+    pendingPromise = null;
+  }
+}
+
+async function fetchPrices() {
   const url = `https://api.coingecko.com/api/v3/simple/price?ids=${SUPPORTED_COINS.join(',')}&vs_currencies=usd`;
 
   try {
@@ -28,13 +44,19 @@ export async function getPrices() {
       prices[coin] = data[coin]?.usd ?? null;
     }
 
-    cache = { prices, timestamp: now };
+    cache = { prices, timestamp: Date.now() };
     return prices;
   } catch (err) {
     console.error('CoinGecko fetch error:', err.message);
     if (err.response) {
       console.error('Status:', err.response.status, 'Data:', JSON.stringify(err.response.data).slice(0, 200));
     }
+
+    if (cache.prices) {
+      console.log('Returning stale cached prices');
+      return cache.prices;
+    }
+
     throw err;
   }
 }
